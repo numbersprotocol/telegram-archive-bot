@@ -59,32 +59,28 @@ Now, you can send messages and files to TAB, and TAB will create Archives in `ar
 
 For demonstrating how to integrate Telegram Bot and Restful API together.
 
-### deploy
-
-#### package install
+### Local development
 
 ```
-pip install fastapi uvicorn python-telegram-bot
+  $ cd telegram_bot_backend
+  $ cp .env.example .env
+  # Edit .env to fill in desired environment variables
+  $ cd app
+  $ cp ../.env .env
+  $ poetry install
+  $ poetry run uvicorn main:app --reload --host 0.0.0.0 --port ${port}
+  # The server would be listening on localhost:{port} now 
 ```
 
-#### app build
+### Run with docker compose 
 
 ```
-cp config.ini.example config.int
+$ cd backend
+$ cp .env.example .env
+# Edit .env to fill in desired environment variables
+$ docker-compose up -d
 ```
-
-config.int:
-
-```
-[TELEGRAM]
-ACCESS_TOKEN =${your api token}
-```
-
-```
-uvicorn main:app --host 0.0.0.0 --port ${port}
-```
-
-#### chatbot webhook setting
+### chatbot webhook setting
 
 send this get request
 ```

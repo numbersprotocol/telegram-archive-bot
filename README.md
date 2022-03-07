@@ -24,12 +24,18 @@ Steps to register a Telegram Bot and get its access token:
 
 ```
 mkdir -p ~/.config/telegram-archive-bot/
-cp config.json.example ~/.config/telegram-archive-bot/config.json
+cp config.json.example config.json
 ```
 
 Put your Telegram bot's access token into `config.json`.
 
+```
+cp config.json ~/.config/telegram-archive-bot/config.json
+```
+
 ## Execute Telegram Archive Bot
+
+### Run in Local 
 
 Create the execution environment
 
@@ -49,6 +55,12 @@ or
 
 ```
 python3 telegram_archive_bot.py --token <bot-access-token> [--debug]
+```
+
+### Run with docker compose
+
+```
+$ docker-compose up -d
 ```
 
 There will be a log file `telegram.log` in the directory where `telegram_archive_bot.py` is.

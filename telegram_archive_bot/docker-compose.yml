@@ -1,0 +1,13 @@
+version: '3.3'
+
+services:
+  archive:
+    image: archive
+    build:
+      context: .
+      dockerfile: archive.dockerfile
+    volumes:
+      - './telegram_archive_bot.py:/telegram_archive_bot.py'
+    container_name: archive
+    tty: true
+    entrypoint: ["python3", "telegram_archive_bot.py", "--token", "~/.config/telegram-archive-bot/config.json"]

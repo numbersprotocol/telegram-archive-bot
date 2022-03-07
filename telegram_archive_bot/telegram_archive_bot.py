@@ -103,6 +103,8 @@ class TelegramBotService(object):
     def handler_message(self, update, context):
         logger.debug(f'update: {update}, context: {context}')
         self.save_message(update)
+        # if len(update.message.text) > 0:
+        #     update.message.reply_text(update.message.text)
 
         # User uploaded image(s) and chose "Compress images"
         if len(update.message.photo) > 0:

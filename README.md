@@ -35,7 +35,7 @@ cp config.json ~/.config/telegram-archive-bot/config.json
 
 ## Execute Telegram Archive Bot
 
-### Run in Local 
+### Run in Local
 
 Create the execution environment
 
@@ -81,10 +81,10 @@ For demonstrating how to integrate Telegram Bot and Restful API together.
   $ cp ../.env .env
   $ poetry install
   $ poetry run uvicorn main:app --reload --host 0.0.0.0 --port ${port}
-  # The server would be listening on localhost:{port} now 
+  # The server would be listening on localhost:{port} now
 ```
 
-### Run with docker compose 
+### Run with docker compose
 
 ```
 $ cd backend

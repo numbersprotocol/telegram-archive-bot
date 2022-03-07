@@ -1,14 +1,16 @@
+import os
+
 from fastapi import FastAPI,Request
 import telegram 
 from telegram.ext import Dispatcher, MessageHandler, Filters, CallbackContext
-import configparser
+from dotenv import load_dotenv
 
-config = configparser.ConfigParser()
-config.read('config.ini')
+load_dotenv()
+
 
 app=FastAPI()
 
-bot = telegram.Bot(token=(config['TELEGRAM']['ACCESS_TOKEN']))
+bot = telegram.Bot(token=(os.getenv('ACCESS_TOKEN')))
 
 @app.post('/hook')
 async def webhook_handler(request:Request):

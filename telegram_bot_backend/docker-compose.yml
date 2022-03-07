@@ -1,0 +1,14 @@
+version: '3.3'
+
+services:
+  telegram:
+    image: app
+    build:
+      context: .
+      dockerfile: app.dockerfile
+    container_name: telegram_app
+    env_file: .env
+    restart: always
+    ports:
+      - 8087:8087
+    entrypoint: ["gunicorn", "main:app", "-w", "1", "-k", "uvicorn.workers.UvicornWorker", "-b", "0.0.0.0:8087"]

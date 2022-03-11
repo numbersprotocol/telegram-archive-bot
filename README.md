@@ -20,14 +20,6 @@ Steps to register a Telegram Bot and get its access token:
     * Bot link: You can start a conversation with the bot by clicking the link.
     * HTTP API Token (Access Token): Write down the token. It is necessary to run TAB.
 
-## Set Bot Enable to archive group message
-
-You need to chat with botfather and disable the privacy mode
-
-![image info](https://user-images.githubusercontent.com/45333055/157828711-296aa904-fc19-497b-acbf-b251228bad98.png)
-add Group Privacy
-![image info](https://user-images.githubusercontent.com/45333055/157828723-a6c05855-b55e-4f44-9de5-63c0cc1ee4cf.png)
-
 ## Create Configuration
 
 ```
@@ -74,6 +66,18 @@ $ docker-compose up -d
 There will be a log file `telegram.log` in the directory where `telegram_archive_bot.py` is.
 
 Now, you can send messages and files to TAB, and TAB will create Archives in `archive/` every 60 seconds.
+
+## Enable Bot to Collect And Archive Messages in Group
+
+You can invite TAB to a group to collect and archive messages in the background.
+
+It's necessary to adjust bot's configuration. You need to chat with botfather and disable the privacy mode
+
+![image info](https://user-images.githubusercontent.com/45333055/157828711-296aa904-fc19-497b-acbf-b251228bad98.png)
+
+add Group Privacy
+
+![image info](https://user-images.githubusercontent.com/45333055/157828723-a6c05855-b55e-4f44-9de5-63c0cc1ee4cf.png)
 
 ## (Optional) Echo Bot with Restful API
 

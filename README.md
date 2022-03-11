@@ -20,6 +20,14 @@ Steps to register a Telegram Bot and get its access token:
     * Bot link: You can start a conversation with the bot by clicking the link.
     * HTTP API Token (Access Token): Write down the token. It is necessary to run TAB.
 
+## Set Bot Enable to archive group message
+
+You need to chat with botfather and disable the privacy mode
+
+![image info](https://user-images.githubusercontent.com/45333055/157828711-296aa904-fc19-497b-acbf-b251228bad98.png)
+add Group Privacy
+![image info](https://user-images.githubusercontent.com/45333055/157828723-a6c05855-b55e-4f44-9de5-63c0cc1ee4cf.png)
+
 ## Create Configuration
 
 ```

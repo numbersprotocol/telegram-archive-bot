@@ -103,37 +103,64 @@ class TelegramBotService(object):
     def handler_message(self, update, context):
         logger.debug(f'update: {update}, context: {context}')
         self.save_message(update)
-        # if len(update.message.text) > 0:
-        #     update.message.reply_text(update.message.text)
+        if update.message != None:
+            # User uploaded image(s) and chose "Compress images"
+            if len(update.message.photo) > 0:
+                # Telegram will create (4) different size JPEG images,
+                # and they are not the original image.
+                file_id = update.message.photo[-1].file_id
+                logger.debug(f'Find photo {file_id}')
+                file = context.bot.get_file(file_id)
+                save_to = os.path.join(
+                    self.data_dir,
+                    f'{file_id}.jpeg'
+                )
+                with open(save_to, 'wb') as f:
+                    f.write(file.download_as_bytearray())
+            else:
+                pass
 
-        # User uploaded image(s) and chose "Compress images"
-        if len(update.message.photo) > 0:
-            # Telegram will create (4) different size JPEG images,
-            # and they are not the original image.
-            file_id = update.message.photo[-1].file_id
-            logger.debug(f'Find photo {file_id}')
-            file = context.bot.get_file(file_id)
-            save_to = os.path.join(
-                self.data_dir,
-                f'{file_id}.jpeg'
-            )
-            with open(save_to, 'wb') as f:
-                f.write(file.download_as_bytearray())
-        else:
-            pass
+            if 'document' in update.message.to_dict():
+                file_id = update.message.document.file_id
+                logger.debug(f'Find document {file_id}')
+                file = context.bot.get_file(file_id)
+                save_to = os.path.join(
+                    self.data_dir,
+                    update.message.document.file_name
+                )
+                with open(save_to, 'wb') as f:
+                    f.write(file.download_as_bytearray())
+            else:
+                pass
+        elif update.channel_post != None:
+            if len(update.channel_post.photo) > 0:
+                # Telegram will create (4) different size JPEG images,
+                # and they are not the original image.
+                file_id = update.channel_post.photo[-1].file_id
+                logger.debug(f'Find photo {file_id}')
+                file = context.bot.get_file(file_id)
+                save_to = os.path.join(
+                    self.data_dir,
+                    f'{file_id}.jpeg'
+                )
+                with open(save_to, 'wb') as f:
+                    f.write(file.download_as_bytearray())
+            else:
+                pass
 
-        if 'document' in update.message.to_dict():
-            file_id = update.message.document.file_id
-            logger.debug(f'Find document {file_id}')
-            file = context.bot.get_file(file_id)
-            save_to = os.path.join(
-                self.data_dir,
-                update.message.document.file_name
-            )
-            with open(save_to, 'wb') as f:
-                f.write(file.download_as_bytearray())
-        else:
-            pass
+            if 'document' in update.channel_post.to_dict():
+                file_id = update.channel_post.document.file_id
+                logger.debug(f'Find document {file_id}')
+                file = context.bot.get_file(file_id)
+                save_to = os.path.join(
+                    self.data_dir,
+                    update.channel_post.document.file_name
+                )
+                with open(save_to, 'wb') as f:
+                    f.write(file.download_as_bytearray())
+            else:
+                pass
+
 
     def update_data_dir(self):
         '''Update data dir by using current timestamp as name
@@ -146,9 +173,12 @@ class TelegramBotService(object):
             logger.warn(f'Fail to create data dir: {data_dir}')
 
     def save_message(self, update):
-        message_timestamp = int(update.message.date.timestamp())
+        if update.message:
+            message_timestamp = int(update.message.date.timestamp())
+        elif update.channel_post:
+            message_timestamp = int(update.channel_post.date.timestamp())
         message_filepath = os.path.join(self.data_dir,
-                                        f'{message_timestamp}.json')
+                                            f'{message_timestamp}.json')
         with open(message_filepath , 'w') as f:
             json.dump(update.to_dict(), f)
             logger.debug(f'Save message {message_filepath}')

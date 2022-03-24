@@ -178,7 +178,7 @@ class TelegramBotService(object):
         elif update.channel_post:
             message_timestamp = int(update.channel_post.date.timestamp())
         message_filepath = os.path.join(self.data_dir,
-                                            f'{message_timestamp}.json')
+                                        f'{message_timestamp}.json')
         with open(message_filepath , 'w') as f:
             json.dump(update.to_dict(), f)
             logger.debug(f'Save message {message_filepath}')
